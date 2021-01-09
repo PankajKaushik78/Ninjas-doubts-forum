@@ -7,4 +7,8 @@ class User < ApplicationRecord
 
   has_many :doubts, dependent: :destroy
   has_many :categories, through: :doubts
+
+  enum designation: { student: 0, assistant: 1, teacher: 2}
+
+
 end
