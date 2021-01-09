@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <% if doubt_author(doubt) %>
+            <% if doubt_author(doubt) || has_role?(:admin) %>
             <div class="column has-text-right">
                 <%= link_to 'Edit', edit_doubt_path(doubt), class:'button' %>
                 <%# link_to 'Delete', doubt, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %>

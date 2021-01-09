@@ -4,12 +4,14 @@
     <ul class="list">
         <% @categories.each do |c| %>
         <li><%= link_to c.category, c %></li>
+        <hr />
         <% end %>
     </ul>
 
     <br />
 
-    <!--- Admin role -->
+    <% if has_role?(:admin) %>
     <%= link_to 'New Category', new_category_path, class:'button is-info' %>
+    <% end %>
 
 </div>

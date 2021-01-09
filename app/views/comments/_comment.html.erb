@@ -13,7 +13,7 @@
                     <%= markdown(comment.comment) %>
                 </p>
             </div>
-            <% if comment_author(comment)%>
+            <% if comment_author(comment) || has_role?(:admin)%>
             <nav class="level is-mobile">
                 <div class="level-left">
                     <a class="level-item">

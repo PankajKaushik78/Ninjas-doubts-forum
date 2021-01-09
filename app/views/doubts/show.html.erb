@@ -12,13 +12,12 @@
         <div class="level">
             <div class="level-left"></div>
             <div class="level-right">
-                <% if doubt_author(@doubt) %>
+                <% if doubt_author(@doubt) || has_role?(:admin) %>
                 <div class="buttons">
                     <%= link_to 'Edit doubt', edit_doubt_path(@doubt), class:'button'%>
                     <%= button_to 'Delete', doubt_path(@doubt), method: :delete, class:'button' %>
                 </div>
                 <% end %>
-                <!--- End role check--->
             </div>
         </div>
         <div class="content"><%= markdown(@doubt.description) %></div>

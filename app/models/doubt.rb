@@ -5,4 +5,5 @@ class Doubt < ApplicationRecord
     has_many :comments, dependent: :destroy
 
     validates :title, :description, presence: true
+    resourcify
 end
