@@ -1,0 +1,43 @@
+<div class="column is-5 is-offset-1">
+    <p class="title is-3 has-text-grey-light">
+        Answer:
+    </p>
+    <div class="box doubt-answer">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong><%= answer.user.username %></strong> <small><%= time_ago_in_words(answer.created_at) %></small>
+                        <br />
+                        <%= markdown(answer.content) %>
+                    </p>
+                </div>
+                <%# if comment_author(comment) || has_role?(:admin)%>
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a class="level-item">
+                            <%= link_to edit_doubt_answer_path(answer.doubt, answer) do %>
+                            <span class="icon is-small"><i class="fa fa-pencil"></i></span>
+                            <% end %>
+                        </a>
+
+                    </div>
+                </nav>
+                <%# end %>
+            </div>
+        </article>
+    </div>
+    <div class='row mt50'>
+        <h3 class="title is-5 has-text-grey-light">Categories</h3>
+
+        <ul class="list">
+            <% @categories.each do |c| %>
+            <li class="mt10"><%= link_to c.category, c %></li>
+            <% end %>
+        </ul>
+
+        <br />
+
+    </div>
+
+</div>

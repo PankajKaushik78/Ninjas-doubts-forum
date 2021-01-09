@@ -1,7 +1,7 @@
 <!-- ---->
 
 <div class="columns">
-    <div class="column is-8">
+    <div class="column is-7">
         <h1 class="title is-2 has-text-grey discussion-title"><%= @doubt.title %></h1>
         <h3 class="subtitle is-5 has-text-grey-lighter">by <%= @doubt.user.username %>
             <% if @doubt.category %>
@@ -40,6 +40,12 @@
 
     </div>
 
-    <%= render 'sidebar' %>
+    <% if @doubt.answer %>
+    <%= render @doubt.answer %>
+    <% else %>
+    <%= render 'answers/form' %>
+    <% end %>
+
+    <% render 'sidebar' %>
 
 </div>

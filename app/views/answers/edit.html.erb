@@ -1,0 +1,13 @@
+<div class="column is-5 is-offset-1">
+    <%= simple_form_for([@doubt, @doubt.answer]) do |f| %>
+    <p class="title is-3"> Update answer</p>
+    <div class="field">
+        <div class="control">
+            <%= f.input :content, required: true,  input_html: { class: 'textarea', style: 'white-space: pre-wrap;'}, wrapper: false, label: false %>
+        </div>
+    </div>
+
+    <%= f.button :submit, 'Update answer', class:'button is-info' %>
+
+    <% end %>
+</div>

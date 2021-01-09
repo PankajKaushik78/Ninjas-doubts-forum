@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   
   resources :doubts do
     resources :comments
+    resources :answers
   end
   root 'doubts#index'
   
