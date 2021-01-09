@@ -10,10 +10,10 @@
                 <p>
                     <strong><%= comment.user.username %></strong> <small><%= time_ago_in_words(comment.created_at) %></small>
                     <br />
-                    <%= comment.comment %>
+                    <%= markdown(comment.comment) %>
                 </p>
             </div>
-            <%# if comment_author(comment) || has_role?(:admin) %>
+            <% if comment_author(comment)%>
             <nav class="level is-mobile">
                 <div class="level-left">
                     <a class="level-item">
@@ -29,7 +29,7 @@
                     </a>
                 </div>
             </nav>
-            <%# end %>
+            <% end %>
         </div>
     </article>
 </div>
