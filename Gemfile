@@ -33,7 +33,7 @@ gem 'jquery-rails'
 gem 'rolify' 
 gem 'cancancan'
 gem 'friendly_id'
-gem 'redcarpet'
+gem 'redcarpet', '~> 3.5', '>= 3.5.1'
 gem 'coderay'
 
 # Reduces boot times through caching; required in config/boot.rb

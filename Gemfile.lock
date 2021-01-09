@@ -246,7 +246,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.1)
-  redcarpet
+  redcarpet (~> 3.5, >= 3.5.1)
   rolify
   sass-rails (>= 6)
   selenium-webdriver

@@ -1,20 +1,22 @@
 class DoubtsController < ApplicationController
   before_action :set_doubt, only: [:show, :edit, :update, :destroy]
+  before_action :get_all_categories, only: [:index, :show, :new, :edit]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /doubts
   # GET /doubts.json
   def index
-    @doubts = Doubt.all
+    @doubts = Doubt.all.order('created_at desc')
   end
 
   # GET /doubts/1
-  # GET /doubts/1.json
   def show
+    @doubts = Doubt.all.order('created_at desc')
   end
 
   # GET /doubts/new
   def new
-    @doubt = Doubt.new
+    @doubt = current_user.doubts.build
   end
 
   # GET /doubts/1/edit
@@ -24,8 +26,9 @@ class DoubtsController < ApplicationController
   # POST /doubts
   # POST /doubts.json
   def create
-    @doubt = Doubt.new(doubt_params)
-
+    @doubt = current_user.doubts.build(doubt_params)
+    @doubt.is_resolved = false
+    @doubt.escalate_count = 0
     respond_to do |format|
       if @doubt.save
         format.html { redirect_to @doubt, notice: 'Doubt was successfully created.' }
@@ -69,6 +72,10 @@ class DoubtsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def doubt_params
-      params.require(:doubt).permit(:title, :description, :is_resolved, :escalate_count)
+      params.require(:doubt).permit(:title, :description, :is_resolved, :escalate_count, :category_id)
+    end
+
+    def get_all_categories
+      @categories = Category.all.order('created_at desc')
     end
 end

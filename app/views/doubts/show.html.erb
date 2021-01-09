@@ -1,24 +1,45 @@
-<p id="notice"><%= notice %></p>
+<!-- ---->
 
-<p>
-  <strong>Title:</strong>
-  <%= @doubt.title %>
-</p>
+<div class="columns">
+    <div class="column is-8">
+        <h1 class="title is-2 has-text-grey discussion-title"><%= @doubt.title %></h1>
+        <h3 class="subtitle is-5 has-text-grey-lighter">by <%= @doubt.user.username %>
+            <% if @doubt.category %>
+            in
+            <%= link_to @doubt.category.category, @doubt.category %>
+            <% end %>
+        </h3>
+        <div class="level">
+            <div class="level-left"></div>
+            <div class="level-right">
+                <!--- Role check--->
+                <div class="buttons">
+                    <%= link_to 'Edit doubt', edit_doubt_path(@doubt), class:'button'%>
+                    <%= button_to 'Delete', doubt_path(@doubt), method: :delete, class:'button' %>
+                </div>
+                <!--- End role check--->
+            </div>
+        </div>
+        <div class="content"><%= @doubt.description %></div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @doubt.description %>
-</p>
+        <h2 class="subtitle is-5 has-text-grey"><%= @doubt.comments.count %> comments</h2>
 
-<p>
-  <strong>Is resolved:</strong>
-  <%= @doubt.is_resolved %>
-</p>
+        <div id="discussion-replies">
+            <%= render @doubt.comments %>
+        </div>
 
-<p>
-  <strong>Escalate count:</strong>
-  <%= @doubt.escalate_count %>
-</p>
+        <hr />
 
-<%= link_to 'Edit', edit_doubt_path(@doubt) %> |
-<%= link_to 'Back', doubts_path %>
+        <h3 class="subtitle is-3 has-text-grey">Leave a comment</h3>
+        <% if user_signed_in? %>
+        <%= render 'comments/form' %>
+        <% else %>
+        <p>To reply you need to <%= link_to 'login', new_user_session_path %>. Don't have an account?
+            <%= link_to 'Sign up', new_user_registration_path %> for one.</p>
+        <% end %>
+
+    </div>
+
+    <%= render 'sidebar' %>
+
+</div>

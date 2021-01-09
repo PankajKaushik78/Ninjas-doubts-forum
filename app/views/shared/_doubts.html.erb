@@ -1,0 +1,35 @@
+<div class="column is-8">
+    <h3 class="title is-5 has-text-grey-light">Doubts Forum</h3>
+    <div class="discussions">
+        <% @doubts.each do |doubt| %>
+        <div class="columns bb-not-last pv10">
+            <div class="column is-1">
+                <%= gravatar_image_tag(doubt.user.email, class:'border-radius-50', size: 48, alt: doubt.user.username) %>
+            </div>
+            <div class="column is-8">
+                <%= link_to doubt do %>
+                <h3 class="title is-5"><%= doubt.title %></h3>
+                <% end %>
+                <div class="content">
+                    <%= truncate(strip_tags(doubt.description), length: 140) %>
+                    <p><em><small>Posted <%= time_ago_in_words(doubt.created_at) %> ago in
+                                <% if doubt.category %>
+                                <%= link_to doubt.category.category, doubt.category %>
+                                <% end %>
+                                by <%= doubt.user.username %>
+                            </small>
+                        </em>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Todo: add user level check --->
+            <div class="column has-text-right">
+                <%= link_to 'Edit', edit_doubt_path(doubt), class:'button' %>
+                <%# link_to 'Delete', doubt, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %>
+            </div>
+
+        </div>
+        <% end %>
+    </div>
+</div>

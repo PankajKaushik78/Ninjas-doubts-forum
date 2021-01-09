@@ -2,12 +2,14 @@
 <html>
 
 <head>
-    <title>Doubts Forum</title>
+    <title>Ninjas Doubts Forum</title>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+
     <%
 =begin%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -30,7 +32,7 @@
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <%= link_to root_path, class:"navbar-item" do %>
-            <h1 class="title is-5">Discussions</h1>
+            <h1 class="title is-5">Ninja Doubts Forum</h1>
             <% end  %>
             <div class="navbar-burger burger" data-target="navbar">
                 <span></span>
@@ -44,7 +46,7 @@
                 <% if user_signed_in? %>
                 <div class="navbar-item">
                     <div class="field is-grouped">
-                        <%= link_to 'New Discussion', '#', class:"button is-info" %>
+                        <%= link_to 'Raise Doubt', new_doubt_path , class:"button is-info" %>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -59,7 +61,7 @@
                     <div class="field is-grouped">
 
                         <p class="control">
-                            <%= link_to 'New Discussion', '#', class:"button is-info" %>
+                            <%= link_to 'Raise Doubt', new_doubt_path, class:"button is-info" %>
                         </p>
 
                         <p class="control">
