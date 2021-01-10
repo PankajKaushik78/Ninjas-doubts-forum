@@ -1,7 +1,7 @@
 <section class="section">
     <div class="container">
         <div class="columns is-centered">
-            <div class="column is-4">
+            <div class="column is-4 pa40 has-background-light">
                 <h2 class="title is-2">Sign up</h2>
 
                 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -33,20 +33,20 @@
                         <%= f.input :password_confirmation, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
                     </div>
                 </div>
-                <br /><%# f.select :designation, User.designations %>
+                <br />
                 <div class="select">
                     <div class="control">
-                        <%= f.select(:designation, User.designations.keys.map {|role| [role.titleize,role]})%>
+                        <%= f.select(:designation, User.designations.keys.map {|role| [role.titleize,role]}, label_html: { class: "label" })%>
                     </div>
                 </div>
                 <div class="mt20">
-                    <%= f.button :submit, "Sign up", class:"button is-info is-medium" %>
+                    <%= f.button :submit, "Sign up", class:"btn-orange" %>
                 </div>
 
 
                 <% end %>
                 <br />
-                <%= render "devise/shared/links" %>
+
             </div>
         </div>
 

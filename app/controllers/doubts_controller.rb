@@ -1,12 +1,16 @@
 class DoubtsController < ApplicationController
-  before_action :set_doubt, only: [:show, :edit, :update, :destroy]
+  before_action :set_doubt, only: [:show, :edit, :update, :destroy, :escalate, :accept]
   before_action :get_all_categories, only: [:index, :show, :new, :edit]
   before_action :authenticate_user!, except: [:index, :show]
 
   # GET /doubts
   # GET /doubts.json
   def index
-    @doubts = Doubt.all.order('created_at desc')
+    if(current_user && current_user.assistant?)
+      @doubts = Doubt.where(is_resolved: false, is_accepted: false).order('created_at desc')
+    else
+      @doubts = Doubt.all.order('created_at desc')
+    end
   end
 
   # GET /doubts/1
@@ -16,7 +20,11 @@ class DoubtsController < ApplicationController
 
   # GET /doubts/new
   def new
+    if(current_user)
     @doubt = current_user.doubts.build
+    else
+      redirect_to 'index'
+    end
   end
 
   # GET /doubts/1/edit
@@ -32,10 +40,8 @@ class DoubtsController < ApplicationController
     respond_to do |format|
       if @doubt.save
         format.html { redirect_to @doubt, notice: 'Doubt was successfully created.' }
-        format.json { render :show, status: :created, location: @doubt }
       else
-        format.html { render :new }
-        format.json { render json: @doubt.errors, status: :unprocessable_entity }
+        format.html { render :new, notice: 'Please fill all fields'}
       end
     end
   end
@@ -64,8 +70,44 @@ class DoubtsController < ApplicationController
     end
   end
 
+  def escalate
+    if(current_user && current_user.assistant?)
+      @doubt.escalate_count += 1
+      @doubt.is_resolved = false
+      @doubt.is_accepted = false
+      current_user.assistant.escalated += 1
+      if(@doubt.answer && @doubt.answer.user_id == current_user.id)
+        current_user.assistant.resolved -= 1
+        @doubt.answer.destroy
+      end
+      current_user.assistant.save
+      @doubt.save
+    elsif(current_user && current_user.teacher?)
+      @doubt.is_resolved = false
+      @doubt.is_accepted = false
+      if(@doubt.answer)
+        @doubt.answer.destroy
+      end
+      @doubt.save
+    end
+    redirect_to doubts_path, notice: "Escalated successfully"
+  end
+
+  def accept
+    if(current_user && (current_user.assistant? || current_user.teacher?))
+      @doubt.is_accepted = true
+      @doubt.save
+      if(current_user.assistant?)
+        current_user.assistant.doubts += 1
+        current_user.assistant.save
+      end
+      redirect_to doubt_path(@doubt)
+    else
+      redirect_to doubts_path
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_doubt
       @doubt = Doubt.find(params[:id])
     end

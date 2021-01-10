@@ -1,14 +1,16 @@
-<div class="column is-8">
-    <h3 class="title is-5 has-text-grey-light">Doubts Forum</h3>
+<div class="column is-8 pa20">
+    <h3 class="title is-3">Doubts Forum</h3>
+    <hr />
     <div class="discussions">
         <% @doubts.each do |doubt| %>
-        <div class="columns bb-not-last pv10">
+        <div class="columns bb-not-last pa10 has-background-light mv10 doubt-list-element">
             <div class="column is-1">
                 <%= gravatar_image_tag(doubt.user.email, class:'border-radius-50', size: 48, alt: doubt.user.username) %>
             </div>
             <div class="column is-8">
                 <%= link_to doubt do %>
                 <h3 class="title is-5"><%= doubt.title %></h3>
+
                 <% end %>
                 <div class="content">
                     <%= truncate(strip_markdown(doubt.description), length: 140) %>
@@ -21,14 +23,39 @@
                         </em>
                     </p>
                 </div>
+                <div class="tags has-addons">
+
+                    <% if doubt.is_resolved %>
+                    <span class="tag is-success">Resolved</span>
+                    <% elsif doubt.is_accepted %>
+                    <span class="tag is-info">Accepted</span>
+                    <% else %>
+                    <span class="tag is-danger">Pending</span>
+                    <% end %>
+                    <span class="tag is-info is-light">
+                        <%= doubt.category.category %>
+                    </span>
+                </div>
+
+
             </div>
 
-            <% if doubt_author(doubt) || has_role?(:admin) %>
+
+
+
             <div class="column has-text-right">
+                <% if (current_user && current_user.student? && doubt_author(doubt)) || has_role?(:admin) %>
                 <%= link_to 'Edit', edit_doubt_path(doubt), class:'button' %>
-                <%# link_to 'Delete', doubt, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %>
+                <% end %>
+
+                <% if doubt.is_resolved %>
+
+                <% elsif current_user && (current_user.assistant? || current_user.teacher?) %>
+                <%= link_to 'Accept', accept_doubt_path(doubt.id), class:'button btn-orange' %>
+
+                <%# button_to 'Accept', accept_doubt_path(doubt.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %>
+                <% end %>
             </div>
-            <% end %>
         </div>
         <% end %>
     </div>

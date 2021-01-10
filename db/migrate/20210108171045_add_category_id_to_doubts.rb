@@ -3,3 +3,4 @@ class AddCategoryIdToDoubts < ActiveRecord::Migration[6.1]
     add_column :doubts, :category_id, :integer
   end
 end
+

@@ -1,5 +1,5 @@
-<div class="box">
-    <article class="media">
+<div class="box comment-card">
+    <article class="media ">
         <div class="media-left">
             <figure class="image is-48x48">
                 <%= gravatar_image_tag(comment.user.email, class: 'border-radius-50', size: 48, alt: comment.user.username) %>
@@ -13,23 +13,25 @@
                     <%= markdown(comment.comment) %>
                 </p>
             </div>
-            <% if comment_author(comment) || has_role?(:admin)%>
-            <nav class="level is-mobile">
-                <div class="level-left">
-                    <a class="level-item">
-                        <%= link_to edit_doubt_comment_path(comment.doubt, comment) do %>
-                        <span class="icon is-small"><i class="fa fa-pencil"></i></span>
-                        <% end %>
-                    </a>
-                    <a class="level-item">
-                        <%= button_to [comment.doubt, comment],
-                method: :delete do %>
-                        <span class="icon is-small"><i class="fa fa-trash-o"></i></span>
-                        <% end %>
-                    </a>
-                </div>
-            </nav>
-            <% end %>
+
         </div>
+        <% if comment_author(comment) || has_role?(:admin)%>
+        <div class="media-right">
+            <div class="level-item">
+                <a>
+                    <%= link_to edit_doubt_comment_path(comment.doubt, comment),  class:'button is-primary  is-light is-small'  do %>
+                    <span class="icon is-small"><i class="fa fa-pencil"></i></span>
+                    <% end %>
+                </a>
+                <a>
+                    <%= button_to  [comment.doubt, comment],
+                method: :delete, class:'button is-danger is-light is-small'  do %>
+                    <span class="icon is-small"><i class="fa fa-trash"></i>
+                        <% end %>
+                </a>
+            </div>
+        </div>
+        <% end %>
     </article>
+
 </div>

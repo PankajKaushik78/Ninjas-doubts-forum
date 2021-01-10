@@ -10,14 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_125824) do
+ActiveRecord::Schema.define(version: 2021_01_10_131441) do
 
   create_table "answers", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "doubt_id"
+  end
+
+  create_table "assistants", force: :cascade do |t|
+    t.integer "doubts", default: 0
+    t.integer "escalated", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "resolved", default: 0
+    t.integer "average_time", default: 0
   end
 
   create_table "categories", force: :cascade do |t|
@@ -43,7 +53,8 @@ ActiveRecord::Schema.define(version: 2021_01_09_125824) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
-    t.integer "category_id"
+    t.integer "category_id", default: 0
+    t.boolean "is_accepted", default: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -66,7 +77,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_125824) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "username"
-    t.integer "designation"
+    t.integer "designation", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -1,17 +1,21 @@
 <div class="column is-3 is-offset-1">
-    <h3 class="title is-5 has-text-grey-light">Categories</h3>
+    <h3 class="title is-3 has-text-grey">Categories</h3>
+    <table class="table is-fullwidth">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
 
-    <ul class="list">
-        <% @categories.each do |c| %>
-        <li><%= link_to c.category, c %></li>
-        <hr />
-        <% end %>
-    </ul>
+        <tbody>
+            <% @categories.each do |c| %>
+            <tr>
+                <th>
+                    <strong><%= link_to c.category, c %></strong>
+                </th>
 
-    <br />
-
-    <% if has_role?(:admin) %>
-    <%= link_to 'New Category', new_category_path, class:'button is-info' %>
-    <% end %>
-
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
 </div>

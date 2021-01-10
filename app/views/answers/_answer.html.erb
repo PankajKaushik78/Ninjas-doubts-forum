@@ -1,5 +1,5 @@
 <div class="column is-5 is-offset-1">
-    <p class="title is-3 has-text-grey-light">
+    <p class="title is-3 has-text-grey">
         Answer:
     </p>
     <div class="box doubt-answer">
@@ -7,12 +7,15 @@
             <div class="media-content">
                 <div class="content">
                     <p>
-                        <strong><%= answer.user.username %></strong> <small><%= time_ago_in_words(answer.created_at) %></small>
+                        <strong><%= answer.user.username %></strong> - <%= answer.user.designation.capitalize%> <small>
+                            <span class="has-text-grey">(<%= time_ago_in_words(answer.created_at) %> ago)<span />
+                        </small>
                         <br />
                         <%= markdown(answer.content) %>
                     </p>
                 </div>
-                <%# if comment_author(comment) || has_role?(:admin)%>
+
+                <% if answer_author(answer) || has_role?(:admin)%>
                 <nav class="level is-mobile">
                     <div class="level-left">
                         <a class="level-item">
@@ -23,21 +26,34 @@
 
                     </div>
                 </nav>
-                <%# end %>
             </div>
+            <%= link_to 'Escalate', escalate_doubt_path(@doubt), class:'button is-outlined is-danger' %>
+            <% end %>
+
         </article>
     </div>
-    <div class='row mt50'>
-        <h3 class="title is-5 has-text-grey-light">Categories</h3>
 
-        <ul class="list">
-            <% @categories.each do |c| %>
-            <li class="mt10"><%= link_to c.category, c %></li>
-            <% end %>
-        </ul>
 
-        <br />
+    <div class="row mt50">
+        <h3 class="title is-3 has-text-grey">Categories</h3>
+        <table class="table is-fullwidth">
+            <thead>
+                <tr>
+                    <th></th>
+                </tr>
+            </thead>
 
+            <tbody>
+                <% @categories.each do |c| %>
+                <tr>
+                    <th>
+                        <strong><%= link_to c.category, c %></strong>
+                    </th>
+
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
     </div>
 
 </div>

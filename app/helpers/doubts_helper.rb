@@ -6,4 +6,8 @@ module DoubtsHelper
     def comment_author(comment)
         user_signed_in? && current_user.id == comment.user_id
     end
+
+    def answer_author(answer)
+        user_signed_in? && current_user.id == answer.user_id
+    end
 end

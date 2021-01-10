@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="field">
+<div class="field mt20">
     <label class="label">Category</label>
     <div class="control has-icons-left">
         <span class="select">
@@ -25,29 +25,10 @@
     </div>
 </div>
 
-<div class="field">
+<div class="field mv30">
     <div class="control">
-        <%= f.button :submit, class:"button is-info" %>
+        <%= f.button :submit, class:"btn-orange" %>
     </div>
 </div>
 
 <% end %>
-
-<!--- Default form from scaffold--->
-<!-- 
-<%= simple_form_for(@doubt) do |f| %>
-<%= f.error_notification %>
-<%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-<div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :description %>
-    <%= f.input :is_resolved %>
-    <%= f.input :escalate_count %>
-</div>
-
-<div class="form-actions">
-    <%= f.button :submit %>
-</div>
-<% end %>
---->

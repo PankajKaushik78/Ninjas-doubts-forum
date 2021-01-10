@@ -4,17 +4,26 @@ class AnswersController < ApplicationController
     before_action :set_doubt, only: [:edit, :show, :update, :destroy, :create]
 
     def create
-        @answer = @doubt.create_answer(answer_params)
-        @answer.user_id = current_user.id
-
-        respond_to do |format|
-            if @answer.save
-                format.html {redirect_to doubt_path(@doubt)}
-                format.js
-            else
-                format.html {redirect_to doubt_path(@doubt), notice: 'Answer did not save. Please try again'}
-                format.js
+        if(current_user && (current_user.assistant? || current_user.teacher? ))
+            @answer = @doubt.create_answer(answer_params)
+            @answer.user_id = current_user.id
+            respond_to do |format|
+                if @answer.save
+                    @doubt.is_resolved = true
+                    if(current_user.assistant?)
+                        current_user.assistant.resolved += 1
+                        current_user.assistant.save
+                    end
+                    @doubt.save
+                    format.html {redirect_to doubt_path(@doubt)}
+                    format.js
+                else
+                    format.html {redirect_to doubt_path(@doubt), notice: 'Answer did not save. Please try again'}
+                    format.js
+                end
             end
+        else
+            redirect_to doubt_path(@doubt)
         end
     end
 
