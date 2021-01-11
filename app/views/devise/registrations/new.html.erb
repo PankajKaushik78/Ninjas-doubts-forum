@@ -33,11 +33,14 @@
                         <%= f.input :password_confirmation, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
                     </div>
                 </div>
-                <br />
-                <div class="select">
-                    <div class="control">
-                        <%= f.select(:designation, User.designations.keys.map {|role| [role.titleize,role]}, label_html: { class: "label" })%>
+                <div class="field">
+                    <p><strong>Select your role: </strong></p>
+                    <div class="select is-rounded mt10">
+                        <div class="control">
+                            <%= f.select(:designation, User.designations.keys.map {|role| [role.titleize,role]}, label_html: { class: "label" })%>
+                        </div>
                     </div>
+
                 </div>
                 <div class="mt20">
                     <%= f.button :submit, "Sign up", class:"btn-orange" %>

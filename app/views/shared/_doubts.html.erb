@@ -50,10 +50,9 @@
 
                 <% if doubt.is_resolved %>
 
-                <% elsif current_user && (current_user.assistant? || current_user.teacher?) %>
+                <% elsif current_user && (current_user.assistant? || current_user.teacher?) && (!doubt.is_accepted) %>
                 <%= link_to 'Accept', accept_doubt_path(doubt.id), class:'button btn-orange' %>
 
-                <%# button_to 'Accept', accept_doubt_path(doubt.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %>
                 <% end %>
             </div>
         </div>

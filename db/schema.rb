@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_131441) do
+ActiveRecord::Schema.define(version: 2021_01_11_102847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_131441) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "resolved", default: 0
-    t.integer "average_time", default: 0
+    t.integer "total_time", default: 0
   end
 
   create_table "categories", force: :cascade do |t|
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_131441) do
     t.integer "user_id"
     t.integer "category_id", default: 0
     t.boolean "is_accepted", default: false
+    t.datetime "accepted_at", precision: 6
   end
 
   create_table "roles", force: :cascade do |t|

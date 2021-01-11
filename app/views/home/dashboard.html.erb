@@ -1,4 +1,7 @@
 <div class="row">
+    <h1 class="has-text-centered title is-size-3 has-background-danger-light pa10">
+        Teaching Assistants report
+    </h1>
     <div class="columns">
         <div class="column dashboard-column">
             <p class="title is-size-3">Doubts Asked</p>
@@ -34,17 +37,16 @@
 </div>
 <hr />
 <div class="row">
-    <h1 class="has-text-centered title is-size-3 has-background-danger-light pa10">
-        Teaching Assistants report
-    </h1>
+
     <table class="table is-fullwidth is-striped">
         <thead>
             <tr>
                 <th>TA Name</th>
-                <th>Doubts Accepted</th>
+                <th># of times doubts Accepted</th>
                 <th>Doubts Resolved</th>
-                <th>Doubts Escalated</th>
-                <th>Avg Doubt Activity Time</th>
+                <th># of timed doubts Escalated</th>
+                <th>Avg Doubt Activity Time <small>(min.)</small>
+                </th>
             </tr>
         </thead>
 
@@ -59,7 +61,7 @@
                 </td>
                 <td><%= assistant.resolved %></td>
                 <td><%= assistant.escalated %></td>
-                <td><%= assistant.average_time %></td>
+                <td><%= (assistant.total_time/assistant.doubts).to_i %></td>
             </tr>
             <% end %>
         </tbody>

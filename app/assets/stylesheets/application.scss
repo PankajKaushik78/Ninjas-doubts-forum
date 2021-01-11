@@ -25,7 +25,6 @@
 
 .doubt-answer{
   background: linear-gradient(180deg, rgba(255,194,161,1) 0%, rgba(245,245,245,1) 100%);
-
 }
 
 .dashboard-column{
@@ -64,11 +63,20 @@
 
 .comment-card{
   box-shadow: none;
-  // border-bottom: 1px solid #ccc;
 }
 
-.test{
-  min-height: 200px;
-  width: 100%;
-  padding: 20px;
+span.hint{
+  color:#ccc;
+  font-size: 0.8rem;
+}
+
+span.error{
+  color: red;
+  font-size: 0.8rem;
+
+}
+
+.error_notification{
+  color: #e9442b;
+  margin-bottom: 5px;
 }

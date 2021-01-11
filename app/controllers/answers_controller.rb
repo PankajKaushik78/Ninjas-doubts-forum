@@ -9,16 +9,19 @@ class AnswersController < ApplicationController
             @answer.user_id = current_user.id
             respond_to do |format|
                 if @answer.save
-                    @doubt.is_resolved = true
                     if(current_user.assistant?)
                         current_user.assistant.resolved += 1
+                        if(@doubt.accepted_at)
+                            current_user.assistant.total_time += ((Time.now - @doubt.accepted_at)/1.minutes).to_i
+                        end
                         current_user.assistant.save
                     end
+                    @doubt.is_resolved = true
                     @doubt.save
                     format.html {redirect_to doubt_path(@doubt)}
                     format.js
                 else
-                    format.html {redirect_to doubt_path(@doubt), notice: 'Answer did not save. Please try again'}
+                    format.html {redirect_to doubt_path(@doubt), alert: 'Answer did not save. Please try again'}
                     format.js
                 end
             end

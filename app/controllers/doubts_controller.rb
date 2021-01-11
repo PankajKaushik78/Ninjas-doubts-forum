@@ -75,6 +75,7 @@ class DoubtsController < ApplicationController
       @doubt.escalate_count += 1
       @doubt.is_resolved = false
       @doubt.is_accepted = false
+      @doubt.accepted_at = nil
       current_user.assistant.escalated += 1
       if(@doubt.answer && @doubt.answer.user_id == current_user.id)
         current_user.assistant.resolved -= 1
@@ -96,11 +97,12 @@ class DoubtsController < ApplicationController
   def accept
     if(current_user && (current_user.assistant? || current_user.teacher?))
       @doubt.is_accepted = true
-      @doubt.save
       if(current_user.assistant?)
+        @doubt.accepted_at = DateTime.now         
         current_user.assistant.doubts += 1
         current_user.assistant.save
       end
+      @doubt.save
       redirect_to doubt_path(@doubt)
     else
       redirect_to doubts_path

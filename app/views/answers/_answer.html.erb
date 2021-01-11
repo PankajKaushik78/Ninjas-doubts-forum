@@ -15,7 +15,7 @@
                     </p>
                 </div>
 
-                <% if answer_author(answer) || has_role?(:admin)%>
+                <% if answer_author(answer) || has_role?(:admin) || (current_user && current_user.teacher?) %>
                 <nav class="level is-mobile">
                     <div class="level-left">
                         <a class="level-item">
