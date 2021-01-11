@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
     before_action :set_doubt, only: [:edit, :show, :update, :destroy, :create]
 
     def create
-        # @comment = @doubt.comments.create(params[:comment]).permit(:comment, :doubt_id)
         @comment = @doubt.comments.create(comment_params)
         @comment.user_id = current_user.id
 

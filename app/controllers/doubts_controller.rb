@@ -82,7 +82,7 @@ class DoubtsController < ApplicationController
       end
       current_user.assistant.save
       @doubt.save
-    elsif(current_user && current_user.teacher?)
+    elsif(current_user && ((current_user.teacher?) || (current_user.has_role?"admin") ))
       @doubt.is_resolved = false
       @doubt.is_accepted = false
       if(@doubt.answer)
