@@ -1,6 +1,6 @@
 class DoubtsController < ApplicationController
   before_action :set_doubt, only: [:show, :edit, :update, :destroy, :escalate, :accept]
-  before_action :get_all_categories, only: [:index, :show, :new, :edit]
+  before_action :get_all_categories, only: [:index, :show, :new, :edit, :create]
   before_action :authenticate_user!, except: [:index, :show]
 
 
