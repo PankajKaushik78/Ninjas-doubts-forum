@@ -3,8 +3,7 @@ class DoubtsController < ApplicationController
   before_action :get_all_categories, only: [:index, :show, :new, :edit]
   before_action :authenticate_user!, except: [:index, :show]
 
-  # GET /doubts
-  # GET /doubts.json
+
   def index
     if(current_user && current_user.assistant?)
       @doubts = Doubt.where(is_resolved: false, is_accepted: false).order('created_at desc')
@@ -13,12 +12,10 @@ class DoubtsController < ApplicationController
     end
   end
 
-  # GET /doubts/1
   def show
     @doubts = Doubt.all.order('created_at desc')
   end
 
-  # GET /doubts/new
   def new
     if(current_user)
     @doubt = current_user.doubts.build
@@ -27,12 +24,9 @@ class DoubtsController < ApplicationController
     end
   end
 
-  # GET /doubts/1/edit
   def edit
   end
 
-  # POST /doubts
-  # POST /doubts.json
   def create
     @doubt = current_user.doubts.build(doubt_params)
     @doubt.is_resolved = false
@@ -46,8 +40,6 @@ class DoubtsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /doubts/1
-  # PATCH/PUT /doubts/1.json
   def update
     respond_to do |format|
       if @doubt.update(doubt_params)
@@ -60,8 +52,6 @@ class DoubtsController < ApplicationController
     end
   end
 
-  # DELETE /doubts/1
-  # DELETE /doubts/1.json
   def destroy
     @doubt.destroy
     respond_to do |format|
@@ -70,6 +60,7 @@ class DoubtsController < ApplicationController
     end
   end
 
+  # Action for handling escalted doubt
   def escalate
     if(current_user && current_user.assistant?)
       @doubt.escalate_count += 1
@@ -94,11 +85,12 @@ class DoubtsController < ApplicationController
     redirect_to doubts_path, notice: "Escalated successfully"
   end
 
+  # Action for handling accepted doubt
   def accept
     if(current_user && (current_user.assistant? || current_user.teacher?))
       @doubt.is_accepted = true
       if(current_user.assistant?)
-        @doubt.accepted_at = DateTime.now         
+        @doubt.accepted_at = Time.now         
         current_user.assistant.doubts += 1
         current_user.assistant.save
       end
@@ -114,7 +106,6 @@ class DoubtsController < ApplicationController
       @doubt = Doubt.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def doubt_params
       params.require(:doubt).permit(:title, :description, :is_resolved, :escalate_count, :category_id)
     end

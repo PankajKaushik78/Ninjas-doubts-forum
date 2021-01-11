@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   def index
   end
 
+  
   def dashboard
     if( current_user && current_user.teacher? )
       @doubts_asked = Doubt.all.length

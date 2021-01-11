@@ -61,7 +61,11 @@
                 </td>
                 <td><%= assistant.resolved %></td>
                 <td><%= assistant.escalated %></td>
+                <% if assistant.doubts != 0 %>
                 <td><%= (assistant.total_time/assistant.doubts).to_i %></td>
+                <% else %>
+                <td> nil </td>
+                <% end %>
             </tr>
             <% end %>
         </tbody>

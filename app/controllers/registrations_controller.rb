@@ -1,5 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
 
+    # Creating Assistant object if registered user is assistant
     def create
       super
       if resource.persisted?
@@ -8,16 +9,5 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
     end
-
-
-    private
-  
-    # def sign_up_params
-    #   params.require(:user).permit(:username, :email, :password, :password_confirmation)
-    # end
-  
-    # def account_update_params
-    #   params.require(:user).permit(:username, :email, :password, :password_confirmation, :current_password, keys: [:designation])
-    # end
   
   end

@@ -65,6 +65,12 @@
   box-shadow: none;
 }
 
+.answer-input{
+  min-width: 100%;
+  min-height: 200px;
+  padding: 10px;
+}
+
 span.hint{
   color:#ccc;
   font-size: 0.8rem;
