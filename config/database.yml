@@ -14,7 +14,7 @@ development:
   adapter: postgresql
   database: ninjas_dev
   username: pankaj
-  password: 'kaushik941'
+  password: <%= ENV['DB_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,7 +24,7 @@ test:
   adapter: postgresql
   database: ninjas_test
   username: pankaj
-  password: 'kaushik941'
+  password: <%= ENV['DB_PASSWORD'] %>
 
 
 production:
@@ -32,5 +32,5 @@ production:
   adapter: postgresql
   database: ninjas_prod
   username: pankaj
-  password: 'kaushik941'
+  password: <%= ENV['DB_PASSWORD'] %>
 

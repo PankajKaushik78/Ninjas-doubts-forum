@@ -36,6 +36,7 @@ gem 'friendly_id'
 gem 'redcarpet', '~> 3.5', '>= 3.5.1'
 gem 'coderay'
 gem 'pg'
+gem 'figaro'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
